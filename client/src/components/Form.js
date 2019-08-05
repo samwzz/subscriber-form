@@ -231,8 +231,8 @@ const Form = () => {
           >
             {Object.keys(teams).map(key => {
               const team = teams[key];
-              const { alias, market, name } = team;
-              if (market === 'Team') { return };
+              const { market, name } = team;
+              if (market === 'Team') { return null };
               return (
                 <MenuItem
                   key={key}
