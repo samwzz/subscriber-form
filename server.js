@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const rp = require('request-promise');
 const path = require('path');
 const data = require('./data');
-const config = require('./config');
+require('dotenv').config();
 
 const app = express()
 const port = process.env.PORT || 3000;
@@ -23,7 +23,7 @@ app.post('/api/subscribe', async (req, res) => {
     uri: 'https://api.omnisend.com/v3/contacts/',
     headers: {
       'Content-Type': 'application/json',
-      'X-API-KEY': config['X-API-KEY'],
+      'X-API-KEY': process.env.X_API_KEY,
     },
     body: req.body,
     json: true,
