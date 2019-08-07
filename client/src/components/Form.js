@@ -81,11 +81,30 @@ const StyledChip = styled(Chip)`
   }
 `;
 
+const StyledMenuItem = styled(MenuItem)`
+  display: flex;
+  justify-content: space-between;
+  height: 48px;
+  width: 300px;
+  background-color: ${props => `#${props.color}`};
+  color: ${props => props.color === 'FFFFFF' ? '#000' : '#fff'};
+
+  &.Mui-selected {
+    color: #fff;
+  }
+`;
+
+const Logo = styled.img`
+  width: 40%;
+  height: auto;
+`;
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
+      width: 300,
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
       color: '#fff',
       backgroundColor: '#424242',
@@ -227,19 +246,23 @@ const Form = () => {
                 id="email-address"
                 placeholder="example@email.com"
               />)}
+            renderValue={selected => selected.map(team => team.name).join(', ')}
             MenuProps={MenuProps}
           >
             {Object.keys(teams).map(key => {
               const team = teams[key];
-              const { market, name } = team;
+              const { alias, market, name, team_color } = team;
               if (market === 'Team') { return null };
               return (
-                <MenuItem
+                <StyledMenuItem
                   key={key}
                   value={team}
+                  alias={alias}
+                  color={team_color}
                 >
                   {`${market} ${name}`}
-                </MenuItem>
+                  <Logo alt={alias} src={require(`../images/nba-logos/${alias}_s.png`)} />
+                </StyledMenuItem>
               )
             })}
           </Select>
